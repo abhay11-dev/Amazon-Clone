@@ -36,9 +36,19 @@ const app = express();
 const port = process.env.PORT || 5000;
 const connectionUrl = process.env.MONGO_URL;
 
-// Get __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Serve frontend — use process.cwd() as fallback
+const frontendPath = path.join(__dirname, '..', './amazon-frontend', 'dist'); 
+// adjust '../frontend/dist' to your actual frontend build output path
+
+app.use(express.static(frontendPath));
+
+// Catch-all: serve index.html for React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 // Security and logging middleware
 app.use(helmet());
@@ -156,15 +166,17 @@ app.get('/*', (req, res) => {
 app.use(errorHandler);
 
 // Start server on configured port
-app.listen(port, () => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`Server running on http://localhost:${port}`);
-    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  }
-});
+// Keep this for local dev
+if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+// THIS is what Vercel uses — must be default export
 
 // Graceful shutdown handler
 process.on('SIGINT', () => {
   mongoose.connection.close();
   process.exit(0);
 });
+export default app;
