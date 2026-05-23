@@ -1,8 +1,6 @@
-export const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production'
-  ? (() => { throw new Error('REACT_APP_API_URL must be set in production'); })()
-  : process.env.REACT_APP_API_URL);
-
-
+export const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:5000";
+  
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
