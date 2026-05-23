@@ -1,94 +1,68 @@
-import axios from 'axios';
-import { API_BASE_URL } from '../constants/appConstants';
+import api from '../Axios';
 
-const API = axios.create({
-  baseURL: API_BASE_URL,
-});
-
-API.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-API.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/signin';
-    }
-    return Promise.reject(error);
-  }
-);
+// Export API objects using the shared axios instance from Axios.js
+// All endpoints should NOT include /api prefix since it's in the baseURL
 
 export const userAPI = {
-  register: (data) => API.post('/users/register', data),
-  signin: (data) => API.post('/users/signin', data),
-  logout: () => API.post('/users/logout'),
-  getProfile: () => API.get('/users/profile'),
-  updateProfile: (data) => API.put('/users/profile', data),
-  getAllUsers: () => API.get('/users'),
-  deleteUser: (id) => API.delete(`/users/${id}`),
+  register: (data) => api.post('/users/register', data),
+  signin: (data) => api.post('/users/signin', data),
+  logout: () => api.post('/users/logout'),
+  getProfile: () => api.get('/users/profile'),
+  updateProfile: (data) => api.put('/users/profile', data),
+  getAllUsers: () => api.get('/users'),
+  deleteUser: (id) => api.delete(`/users/${id}`),
 };
 
 export const productAPI = {
-  getAllProducts: (params) => API.get('/products', { params }),
-  getProductById: (id) => API.get(`/products/${id}`),
-  searchProducts: (params) => API.get('/products/search', { params }),
-  filterProducts: (params) => API.get('/products/filter', { params }),
-  getProductsByCategory: (slug, params) => API.get(`/products/category/${slug}`, { params }),
-  getSimilarProducts: (id) => API.get(`/products/similar/${id}`),
-  createProduct: (data) => API.post('/products', data),
-  updateProduct: (id, data) => API.put(`/products/${id}`, data),
-  deleteProduct: (id) => API.delete(`/products/${id}`),
+  getAllProducts: (params) => api.get('/products', { params }),
+  getProductById: (id) => api.get(`/products/${id}`),
+  searchProducts: (params) => api.get('/products/search', { params }),
+  filterProducts: (params) => api.get('/products/filter', { params }),
+  getProductsByCategory: (slug, params) => api.get(`/products/category/${slug}`, { params }),
+  getSimilarProducts: (id) => api.get(`/products/similar/${id}`),
+  createProduct: (data) => api.post('/products', data),
+  updateProduct: (id, data) => api.put(`/products/${id}`, data),
+  deleteProduct: (id) => api.delete(`/products/${id}`),
 };
 
 export const cartAPI = {
-  getCart: () => API.get('/cart'),
-  addToCart: (data) => API.post('/cart/add', data),
-  updateCartItem: (data) => API.put('/cart/update', data),
-  removeFromCart: (productId) => API.delete(`/cart/remove/${productId}`),
-  clearCart: () => API.delete('/cart/clear'),
+  getCart: () => api.get('/cart'),
+  addToCart: (data) => api.post('/cart/add', data),
+  updateCartItem: (data) => api.put('/cart/update', data),
+  removeFromCart: (productId) => api.delete(`/cart/remove/${productId}`),
+  clearCart: () => api.delete('/cart/clear'),
 };
 
 export const wishlistAPI = {
-  getWishlist: () => API.get('/wishlist'),
-  addToWishlist: (data) => API.post('/wishlist/add', data),
-  removeFromWishlist: (productId) => API.delete(`/wishlist/remove/${productId}`),
-  isInWishlist: (productId) => API.get(`/wishlist/check/${productId}`),
-  moveToCart: (productId) => API.put(`/wishlist/move-to-cart/${productId}`),
+  getWishlist: () => api.get('/wishlist'),
+  addToWishlist: (data) => api.post('/wishlist/add', data),
+  removeFromWishlist: (productId) => api.delete(`/wishlist/remove/${productId}`),
+  isInWishlist: (productId) => api.get(`/wishlist/check/${productId}`),
+  moveToCart: (productId) => api.put(`/wishlist/move-to-cart/${productId}`),
 };
 
 export const orderAPI = {
-  createOrder: (data) => API.post('/orders', data),
-  getMyOrders: () => API.get('/orders/mine'),
-  getOrderById: (id) => API.get(`/orders/${id}`),
-  updateOrderToPaid: (id, data) => API.put(`/orders/${id}/pay`, data),
-  getAllOrders: (params) => API.get('/orders', { params }),
+  createOrder: (data) => api.post('/orders', data),
+  getMyOrders: () => api.get('/orders/mine'),
+  getOrderById: (id) => api.get(`/orders/${id}`),
+  updateOrderToPaid: (id, data) => api.put(`/orders/${id}/pay`, data),
+  getAllOrders: (params) => api.get('/orders', { params }),
 };
 
 export const reviewAPI = {
-  createReview: (data) => API.post('/reviews', data),
-  getProductReviews: (productId, params) => API.get(`/reviews/${productId}`, { params }),
-  updateReview: (reviewId, data) => API.put(`/reviews/${reviewId}`, data),
-  deleteReview: (reviewId) => API.delete(`/reviews/${reviewId}`),
-  markHelpful: (reviewId) => API.put(`/reviews/${reviewId}/helpful`),
+  createReview: (data) => api.post('/reviews', data),
+  getProductReviews: (productId, params) => api.get(`/reviews/${productId}`, { params }),
+  updateReview: (reviewId, data) => api.put(`/reviews/${reviewId}`, data),
+  deleteReview: (reviewId) => api.delete(`/reviews/${reviewId}`),
+  markHelpful: (reviewId) => api.put(`/reviews/${reviewId}/helpful`),
 };
 
 export const categoryAPI = {
-  getAllCategories: () => API.get('/categories'),
-  getCategoryBySlug: (slug) => API.get(`/categories/${slug}`),
-  createCategory: (data) => API.post('/categories', data),
-  updateCategory: (id, data) => API.put(`/categories/${id}`, data),
-  deleteCategory: (id) => API.delete(`/categories/${id}`),
+  getAllCategories: () => api.get('/categories'),
+  getCategoryBySlug: (slug) => api.get(`/categories/${slug}`),
+  createCategory: (data) => api.post('/categories', data),
+  updateCategory: (id, data) => api.put(`/categories/${id}`, data),
+  deleteCategory: (id) => api.delete(`/categories/${id}`),
 };
 
-export default API;
+export default api;
