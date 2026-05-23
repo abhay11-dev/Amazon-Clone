@@ -86,7 +86,7 @@ mongoose.connect(connectionUrl, {
 
 // API routes
 app.use('/api/users', userRouter);
-app.use('/api/products', productRouter);
+app.use('/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/wishlist', wishlistRouter);
