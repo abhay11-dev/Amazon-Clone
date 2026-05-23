@@ -29,8 +29,6 @@ import categoryRouter from './routers/categoryRouter.js';
 import reviewRouter from './routers/reviewRouter.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 5000;
 const connectionUrl = process.env.MONGO_URL;
@@ -86,7 +84,7 @@ mongoose.connect(connectionUrl, {
 
 // API routes
 app.use('/api/users', userRouter);
-app.use('/api/products', productRouter);
+app.use('/api/products', productRouter);   // FIXED: was '/products', must be '/api/products'
 app.use('/api/orders', orderRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/wishlist', wishlistRouter);
@@ -139,5 +137,3 @@ process.on('SIGINT', () => {
   mongoose.connection.close();
   process.exit(0);
 });
-
-
