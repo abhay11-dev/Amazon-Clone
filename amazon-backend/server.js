@@ -24,9 +24,9 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(morgan('dev'));
 
-// CORS - Allow localhost:3000 for local development
+// CORS - Allow both localhost and remote IP
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'http://51.21.196.14:3000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
