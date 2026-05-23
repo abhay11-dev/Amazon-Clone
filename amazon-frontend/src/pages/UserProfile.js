@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import { detailsUser, updateUserProfile, verifyPassword } from '../actions/UserAction';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_PROFILE_RESET } from '../constants/UserConstant';
 import EditIcon from '@material-ui/icons/Edit';
 import "../styles/UserProfile.css";
 
