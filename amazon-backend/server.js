@@ -30,6 +30,7 @@ import reviewRouter from './routers/reviewRouter.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -112,7 +113,13 @@ app.get('/health', (req, res) => {
 
 // Serve static files from React frontend build in production
 const buildPath = path.join(__dirname, '../amazon-frontend/build');
-app.use(express.static(buildPath));
+
+// Check if build folder exists and serve static files
+if (fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+} else if (process.env.NODE_ENV === 'development') {
+  console.warn(`Frontend build folder not found at ${buildPath}`);
+}
 
 // SPA fallback - serve index.html for all non-API routes
 app.get('/*', (req, res) => {
@@ -128,9 +135,18 @@ app.get('/*', (req, res) => {
   const indexPath = path.join(buildPath, 'index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
-      res.status(404).json({
+      // If build doesn't exist, send helpful message
+      if (err.code === 'ENOENT') {
+        return res.status(503).json({
+          success: false,
+          message: 'Frontend build not found. The build process may still be running.',
+          path: buildPath,
+        });
+      }
+      res.status(500).json({
         success: false,
-        message: 'Frontend build not found. Run build command.',
+        message: 'Error loading frontend',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined,
       });
     }
   });
