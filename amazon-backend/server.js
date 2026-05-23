@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Validate required environment variables
-const required = ['MONGO_URL', 'JWT_SECRET', 'NODE_ENV'];
+const required = ['JWT_SECRET', 'NODE_ENV'];
 if (process.env.NODE_ENV === 'production') {
   required.push('CORS_ORIGIN');
 }
@@ -34,21 +34,10 @@ import fs from 'fs';
 
 const app = express();
 const port = process.env.PORT || 5000;
-const connectionUrl = process.env.MONGO_URL;
+const connectionUrl = 'mongodb://localhost:27017/shopnest';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Serve frontend — use process.cwd() as fallback
-const frontendPath = path.join(__dirname, '..', './amazon-frontend', 'dist'); 
-// adjust '../frontend/dist' to your actual frontend build output path
-
-app.use(express.static(frontendPath));
-
-// Catch-all: serve index.html for React Router
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
-});
 
 // Security and logging middleware
 app.use(helmet());
@@ -87,17 +76,21 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Database connection
-mongoose.connect(connectionUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log('MongoDB connected successfully');
+const connectDB = async () => {
+  try {
+    await mongoose.connect('mongodb+srv://abhayrajsinghmandloi_db_user:Zh8JTyBww3ny43ws@cluster0.a3o86x0.mongodb.net/?appName=Cluster0', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('✅ MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+    console.error('Make sure your internet connection is working');
+    process.exit(1);
   }
-}).catch((error) => {
-  console.error('MongoDB connection error:', error);
-  process.exit(1);
-});
+};
+
+await connectDB();
 
 // API routes
 app.use('/api/users', userRouter);
@@ -175,8 +168,8 @@ if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
 // THIS is what Vercel uses — must be default export
 
 // Graceful shutdown handler
-process.on('SIGINT', () => {
-  mongoose.connection.close();
+process.on('SIGINT', async () => {
+  await mongoose.connection.close();
   process.exit(0);
 });
 export default app;

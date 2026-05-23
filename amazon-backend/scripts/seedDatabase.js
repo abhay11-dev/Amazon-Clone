@@ -5,7 +5,7 @@ import { products } from '../products.js';
 
 dotenv.config();
 
-await mongoose.connect(process.env.MONGO_URL);
+await mongoose.connect('mongodb+srv://abhayrajsinghmandloi_db_user:Zh8JTyBww3ny43ws@cluster0.a3o86x0.mongodb.net/?appName=Cluster0');
 
 const seedData = async () => {
     try {
@@ -17,10 +17,12 @@ const seedData = async () => {
 
 await Product.insertMany(productsWithSlug);
 
-        console.log('Products Imported!');
+        console.log('✅ Products Imported!');
+        await mongoose.connection.close();
         process.exit(0);
     } catch(error) {
         console.log(error);
+        await mongoose.connection.close();
         process.exit(1);
     }
 };
