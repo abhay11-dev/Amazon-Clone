@@ -1,7 +1,14 @@
 import axios from "axios";
 
+// Ensure environment variable is properly set with fallback
+const API_URL = process.env.REACT_APP_API_URL || (
+  process.env.NODE_ENV === 'production' 
+    ? 'https://amazon-clone-bice-xi.vercel.app'
+    : 'http://localhost:5000'
+);
+
 const api = axios.create({
-  baseURL: `${process.env.REACT_APP_API_URL}/api`
+  baseURL: `${API_URL}/api`
 });
 
 // Add auth token to all requests
