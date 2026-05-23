@@ -1,6 +1,6 @@
-# Amazon Clone — Full-Stack E-Commerce Platform
+# ShopNest — Full-Stack E-Commerce Platform
 
-> MERN Stack · v2.0.0 · Production Ready · May 2026
+> MERN Stack · v1.0.0 · Production Ready · May 2026
 
 ---
 
@@ -8,7 +8,7 @@
 
 This is a full-stack e-commerce app built on the MERN stack — MongoDB, Express, React 18, and Node.js. It covers everything you'd expect from a shopping platform: product catalog with search and filtering, cart, multi-step checkout, order history, reviews, and wishlists. The backend is a REST API with JWT auth, rate limiting, and request validation. The frontend is a Redux-managed React app using Material-UI v5.
 
-Version 2.0.0 rewrites the state layer to Redux Toolkit, upgrades to MUI v5, and finishes several features that were stubs in v1 — wishlist persistence, review voting, order cancellation, and advanced product filtering.
+Version 1.0.0 features a complete MERN stack implementation with Redux Toolkit state management, Material-UI v5 components, and production-ready security.
 
 ### What's new in v2.0.0
 
@@ -92,8 +92,8 @@ Wishlist is per-user and persists server-side. A move-to-cart action transfers a
 ## Project Structure
 
 ```
-amazon-clone/
-├── amazon-backend/
+shopnest/
+├── shopnest-backend/
 │   ├── controllers/        # Route handlers — one file per resource
 │   ├── models/             # Mongoose schemas
 │   ├── routers/            # Express routers, maps paths to controllers
@@ -103,7 +103,7 @@ amazon-clone/
 │   ├── .env.example        # Copy this to .env before starting
 │   └── package.json
 │
-├── amazon-frontend/
+├── shopnest-frontend/
 │   ├── src/
 │   │   ├── components/     # Shared UI components (Navbar, ProductCard, etc.)
 │   │   ├── pages/          # Page-level components (Home, Product, Cart, etc.)
@@ -136,13 +136,13 @@ The app won't run on older Node versions — some syntax used in the backend req
 
 ```bash
 git clone <repository-url>
-cd amazon-clone
+cd shopnest
 ```
 
 ### 2. Backend
 
 ```bash
-cd amazon-backend
+cd shopnest-backend
 cp .env.example .env
 # Edit .env — see Environment Variables below
 npm install
@@ -154,7 +154,7 @@ Server starts on `http://localhost:5000`. Watch the console — if MongoDB isn't
 ### 3. Frontend
 
 ```bash
-cd amazon-frontend
+cd shopnest-frontend
 cp .env.example .env
 # Set REACT_APP_API_URL=http://localhost:5000/api
 npm install
@@ -167,12 +167,12 @@ Opens at `http://localhost:3000`. Hot reload is on by default.
 
 ## Environment Variables
 
-### Backend — `amazon-backend/.env`
+### Backend — `shopnest-backend/.env`
 
 ```env
 PORT=5000
 NODE_ENV=development
-MONGO_URL=mongodb://localhost:27017/amazon-clone
+MONGO_URL=mongodb://localhost:27017/shopnest
 JWT_SECRET=your-random-string-minimum-32-characters
 JWT_REFRESH_SECRET=another-random-string
 CORS_ORIGIN=http://localhost:3000
@@ -187,7 +187,7 @@ PAYPAL_CLIENT_ID=your-paypal-id
 | `PORT` | No | Defaults to 5000 |
 | `PAYPAL_CLIENT_ID` | No | Only needed if wiring up PayPal checkout |
 
-### Frontend — `amazon-frontend/.env`
+### Frontend — `shopnest-frontend/.env`
 
 ```env
 REACT_APP_API_URL=http://localhost:5000/api
@@ -281,7 +281,7 @@ All endpoints return JSON. Auth-required routes expect an `Authorization: Bearer
 
 ## Database
 
-MongoDB 7.x with Mongoose. Single database — `amazon-clone` by default.
+MongoDB 7.x with Mongoose. Single database — `shopnest` by default.
 
 | Collection | Key Fields | Indexes |
 |---|---|---|
@@ -313,14 +313,14 @@ MongoDB 7.x with Mongoose. Single database — `amazon-clone` by default.
 ### Frontend — Vercel
 
 1. Push repository to GitHub
-2. Connect to Vercel, set the root to `amazon-frontend`
+2. Connect to Vercel, set the root to `shopnest-frontend`
 3. Add `REACT_APP_API_URL` pointing to your production backend
 4. Deploy — Vercel rebuilds on every push to `main`
 
 ### Backend — Railway or Render
 
 1. Create account, connect GitHub repo
-2. Set root directory to `amazon-backend`
+2. Set root directory to `shopnest-backend`
 3. Set start command: `node server.js`
 4. Add all variables from `.env.example`
 5. Deploy — restarts automatically on push
@@ -387,4 +387,4 @@ MIT License — open for personal and commercial use.
 
 ---
 
-**Version:** 2.0.0 &nbsp;|&nbsp; **Last Updated:** May 2026 &nbsp;|&nbsp; **Status:** Production Ready
+**Version:** 1.0.0 &nbsp;|&nbsp; **Last Updated:** May 2026 &nbsp;|&nbsp; **Status:** Production Ready

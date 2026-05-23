@@ -1,4 +1,4 @@
-# Quick Start Guide — Amazon Clone v2.0.0
+# Quick Start Guide — ShopNest v1.0.0
 
 Get the app running locally in about five minutes.
 
@@ -22,10 +22,10 @@ Three things need to be on your machine. If any are missing, the steps below wil
 
 ```bash
 git clone <repository-url>
-cd amazon-clone
+cd shopnest
 ```
 
-The project has two sub-folders inside (`amazon-backend` and `amazon-frontend`). Keep them together.
+The project has two sub-folders inside (`shopnest-backend` and `shopnest-frontend`). Keep them together.
 
 ---
 
@@ -36,7 +36,7 @@ Get the server running first so you can verify the API before touching the front
 ### Install dependencies
 
 ```bash
-cd amazon-backend
+cd shopnest-backend
 npm install
 ```
 
@@ -46,10 +46,10 @@ npm install
 cp .env.example .env
 ```
 
-Open `amazon-backend/.env` and fill in at minimum these values:
+Open `shopnest-backend/.env` and fill in at minimum these values:
 
 ```env
-MONGO_URL=mongodb://localhost:27017/amazon-clone
+MONGO_URL=mongodb://localhost:27017/shopnest
 JWT_SECRET=pick-a-random-string-at-least-32-characters-long
 CORS_ORIGIN=http://localhost:3000
 ```
@@ -80,7 +80,7 @@ Open a **second terminal window**. Don't stop the backend.
 ### Install dependencies
 
 ```bash
-cd amazon-frontend
+cd shopnest-frontend
 npm install
 ```
 
@@ -221,7 +221,7 @@ npm install
 
 ### White screen on frontend
 
-No error message, just a blank page. Almost always means `REACT_APP_API_URL` is wrong or missing in `amazon-frontend/.env`. Double-check it points to the running backend with `/api` at the end and no trailing slash.
+No error message, just a blank page. Almost always means `REACT_APP_API_URL` is wrong or missing in `shopnest-frontend/.env`. Double-check it points to the running backend with `/api` at the end and no trailing slash.
 
 ---
 
@@ -244,11 +244,11 @@ Use this to track progress on a fresh install:
 
 - [ ] Node 18+ installed (`node -v` to verify)
 - [ ] MongoDB running locally or Atlas cluster ready
-- [ ] `amazon-backend/.env` created — `MONGO_URL`, `JWT_SECRET`, `CORS_ORIGIN` filled in
-- [ ] `npm install` run in `amazon-backend/`
+- [ ] `shopnest-backend/.env` created — `MONGO_URL`, `JWT_SECRET`, `CORS_ORIGIN` filled in
+- [ ] `npm install` run in `shopnest-backend/`
 - [ ] Backend starts without errors
-- [ ] `amazon-frontend/.env` created — `REACT_APP_API_URL` set
-- [ ] `npm install` run in `amazon-frontend/`
+- [ ] `shopnest-frontend/.env` created — `REACT_APP_API_URL` set
+- [ ] `npm install` run in `shopnest-frontend/`
 - [ ] Frontend loads at `http://localhost:3000`
 - [ ] Can register a new user account
 - [ ] Product listing page loads (may be empty until products are added)
@@ -259,4 +259,4 @@ Use this to track progress on a fresh install:
 
 > For full documentation — API reference, database schema, deployment steps, and more — see [`README.md`](./README.md).
 
-**Version:** 2.0.0 &nbsp;|&nbsp; **May 2026**
+**Version:** 1.0.0 &nbsp;|&nbsp; **May 2026**

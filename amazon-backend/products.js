@@ -79,18 +79,6 @@ export const products = [
         stock: 4
     },
 
-    // {
-    //     image: "https://images.unsplash.com/photo-1615750824816-8c2e7a58d37c?w=600&q=80",
-    //     name: "Apple Magic Mouse",
-    //     description: "Wireless Bluetooth mouse with gesture controls and rechargeable battery.",
-    //     category: "Computer Accessories",
-    //     brand: "Apple",
-    //     price: 499,
-    //     rating: 5,
-    //     numRev: 180,
-    //     stock: 80
-    // },
-
     {
         image: "https://images.unsplash.com/photo-1551739440-5dd934d3a94a?w=600&q=80",
         name: "LG 34 Ultrawide Monitor",
