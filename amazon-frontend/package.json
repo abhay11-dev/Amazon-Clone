@@ -4,7 +4,8 @@
   "description": "A full-stack e-commerce web application frontend built with the MERN stack",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": "20.x" 
+    // ready for node 20, but can be updated to 22 when the ecosystem is fully compatible
   },
   "proxy": "http://localhost:5000",
   "dependencies": {
