@@ -1,0 +1,9 @@
+cat > netlify.toml << 'EOF'
+[build]
+  base = "amazon-frontend"
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  CI = "false"
+EOF
