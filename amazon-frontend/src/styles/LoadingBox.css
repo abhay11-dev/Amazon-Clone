@@ -1,0 +1,21 @@
+.loading-box{
+    margin: auto;
+    text-align: center;
+    background-color: transparent;
+    width: 100%;
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-box > .MuiSvgIcon-root{
+    color: #f3a847;
+    font-size: 48px !important;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

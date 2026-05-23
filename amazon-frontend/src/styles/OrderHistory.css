@@ -1,0 +1,99 @@
+.orderhistory-container{
+    max-width: 1500px;
+    margin: 28px auto;
+    padding: 0 24px;
+}
+
+.orderhistory-container h1{
+    margin-bottom: 24px;
+    color: #111111;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.table{
+    margin-top: 22px;
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #d5d9d9;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.table thead tr th{
+    padding: 16px 12px;
+    border: none;
+    border-bottom: 2px solid #d5d9d9;
+    background-color: #f3f3f3;
+    color: #111111;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.table tbody tr{
+    text-align: center;
+    padding: 14px;
+    border-bottom: 1px solid #e3e6e6;
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fbfb;
+}
+
+.table tbody tr td{
+    border: none;
+    padding: 14px 12px;
+    color: #111111;
+    font-size: 14px;
+    text-align: center;
+}
+
+.table tbody tr td:nth-child(1),
+.table tbody tr td:nth-child(3) {
+    font-weight: 600;
+}
+
+.table tbody tr:nth-of-type(odd){
+    background-color: transparent;
+}
+
+.order-details-btn{
+    width: 70%;
+    margin: auto;
+    padding: 8px;
+    background-color: #ffd814;
+    border: 1px solid #fcd200;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+}
+
+.order-details-btn:hover{
+    background-color: #f7ca00;
+}
+
+.order-details-btn > .MuiSvgIcon-root{
+    font-size: 22px !important;
+    color: #111111;
+}
+
+@media(max-width: 900px){
+    .orderhistory-container{
+        overflow-x: auto;
+        padding: 0 16px;
+    }
+    .table{
+        width: 1900px;
+        font-size: 12px;
+    }
+    .table thead tr th {
+        padding: 12px 8px;
+    }
+    .table tbody tr td {
+        padding: 10px 8px;
+    }
+}

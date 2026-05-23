@@ -1,0 +1,23 @@
+.steps-conatiner{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    margin: 28px 0;
+    padding: 0 24px;
+}
+
+.steps-conatiner > div{
+    border-top: 3px solid #d5d9d9;
+    color: #a8acaf;
+    flex: 1;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.steps-conatiner > div.active{
+    border-top-color: #f08000;
+    color: #f08000;
+    font-weight: 700;
+}

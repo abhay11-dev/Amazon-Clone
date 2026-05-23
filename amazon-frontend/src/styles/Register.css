@@ -1,0 +1,44 @@
+.register-container {
+    max-width: 600px;
+    margin: auto;
+    transform: translateY(20%);
+    position: relative;
+}
+
+/* Toast — shared with SignIn via same class names */
+.reg-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideIn 0.25s ease;
+    max-width: 340px;
+}
+
+.reg-toast--error {
+    background: #fdecea;
+    color: #c0392b;
+    border-left: 4px solid #e74c3c;
+}
+
+.reg-toast--success {
+    background: #eafaf1;
+    color: #1e7e34;
+    border-left: 4px solid #27ae60;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@media(max-width: 900px) {
+    .register-container {
+        transform: translateY(14%);
+    }
+}

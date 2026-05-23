@@ -1,0 +1,117 @@
+.signin-container{
+    max-width: 600px;
+    margin: 48px auto;
+    padding: 0 20px;
+}
+
+.form{
+    margin: 0 32px;
+    padding: 36px;
+    border: solid 1px #d5d9d9;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 17, 17, 0.1);
+}
+
+.form h1 {
+    color: #111111;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.form-ip-sec{
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-ip-sec label{
+    color: #111111;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-ip-sec input{
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 3px;
+    border: 1px solid #a8acaf;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-ip-sec input:focus{
+    outline: 0;
+    border-color: #f3a847;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(243, 168, 71, 0.1);
+}
+
+.submit-btn{
+    background-color: #ffd814;
+    border: 1px solid #fcd200;
+    border-radius: 3px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 600;
+    outline: 0;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover{
+    background-color: #f7ca00;
+}
+
+.new-user-register{
+    margin-top: 28px;
+    font-size: 15px;
+    text-align: center;
+}
+.new-user-register a{
+    color: #0066cc;
+    margin-left: 6px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.new-user-register a:hover {
+    color: #c45500;
+}
+
+@media(max-width: 900px){
+    .signin-container{
+        margin: 28px auto;
+    }
+
+    .form{
+        margin: 0;
+        padding: 24px;
+    }
+}
+/* Toast — same styles as Register, defined here so SignIn works standalone */
+.reg-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideIn 0.25s ease;
+    max-width: 340px;
+}
+.reg-toast--error  { background: #fdecea; color: #c0392b; border-left: 4px solid #e74c3c; }
+.reg-toast--success{ background: #eafaf1; color: #1e7e34; border-left: 4px solid #27ae60; }
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
