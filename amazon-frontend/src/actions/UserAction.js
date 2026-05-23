@@ -109,9 +109,8 @@ export const verifyPassword = (currentPassword) => async (dispatch, getState) =>
         );
         return data;
     } catch (error) {
-        throw {
-            success: false,
-            message: error.response?.data?.message || 'Password verification failed'
-        };
+    throw new Error(
+        error.response?.data?.message || 'Password verification failed'
+    );
     }
 };
