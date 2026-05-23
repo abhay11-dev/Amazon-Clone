@@ -28,10 +28,16 @@ import wishlistRouter from './routers/wishlistRouter.js';
 import categoryRouter from './routers/categoryRouter.js';
 import reviewRouter from './routers/reviewRouter.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = process.env.PORT || 5000;
 const connectionUrl = process.env.MONGO_URL;
+
+// Get __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Security and logging middleware
 app.use(helmet());
@@ -104,20 +110,29 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Root endpoint returns API information
-app.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'ShopNest - E-commerce Backend API',
-    version: '1.0.0',
-  });
-});
+// Serve static files from React frontend build in production
+const buildPath = path.join(__dirname, '../amazon-frontend/build');
+app.use(express.static(buildPath));
 
-// 404 handler for undefined routes
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'Route not found',
+// SPA fallback - serve index.html for all non-API routes
+app.get('/*', (req, res) => {
+  // Don't serve index.html for API routes or health checks
+  if (req.path.startsWith('/api') || req.path === '/health') {
+    return res.status(404).json({
+      success: false,
+      message: 'Route not found',
+    });
+  }
+
+  // Serve React app
+  const indexPath = path.join(buildPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(404).json({
+        success: false,
+        message: 'Frontend build not found. Run build command.',
+      });
+    }
   });
 });
 
