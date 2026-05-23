@@ -1,0 +1,9 @@
+**
+
+!/amazon-backend/**
+!/amazon-frontend/src/**
+!/amazon-frontend/public/**
+!/amazon-frontend/package.json
+!/amazon-frontend/package-lock.json
+!/package.json
+!/package-lock.json

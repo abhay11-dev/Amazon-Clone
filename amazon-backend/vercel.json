@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm install && cd ../amazon-frontend && npm install && npm run build && cd ../amazon-backend",
   "builds": [
     {
       "src": "server.js",
