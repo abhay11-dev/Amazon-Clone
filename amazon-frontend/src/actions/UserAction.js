@@ -5,7 +5,7 @@ import {
     USER_SIGNOUT,
     USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS
 } from "../constants/UserConstant"
-import api from "../Axios"
+import axios from "../Axios"
 
 // ─── REGISTER ────────────────────────────────────────────────────────────────
 // FIX 1: Backend requires confirmPassword in the body — was never sent.
@@ -14,7 +14,7 @@ import api from "../Axios"
 export const register = (name, email, password, confirmPassword) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST });
     try {
-        const { data } = await api.post('/users/register', {
+        const { data } = await axios.post('/api/users/register', {
             name, email, password, confirmPassword
         });
 
@@ -37,7 +37,7 @@ export const register = (name, email, password, confirmPassword) => async (dispa
 export const signin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST });
     try {
-        const { data } = await api.post('/users/signin', { email, password });
+        const { data } = await axios.post('/api/users/signin', { email, password });
 
         const userInfo = { ...data.user, token: data.token };
 
@@ -60,10 +60,13 @@ export const signout = () => (dispatch) => {
 };
 
 // ─── USER DETAILS ─────────────────────────────────────────────────────────────
-export const detailsUser = (userId) => async (dispatch) => {
+export const detailsUser = (userId) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
+    const { userSignin: { userInfo } } = getState();
     try {
-        const { data } = await api.get(`/users/${userId}`);
+        const { data } = await axios.get(`/api/users/${userId}`, {
+            headers: { Authorization: `Bearer ${userInfo?.token}` },
+        });
         dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user || data });
     } catch (error) {
         dispatch({
@@ -74,13 +77,16 @@ export const detailsUser = (userId) => async (dispatch) => {
 };
 
 // ─── UPDATE PROFILE ───────────────────────────────────────────────────────────
-export const updateUserProfile = (user) => async (dispatch) => {
+export const updateUserProfile = (user) => async (dispatch, getState) => {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
+    const { userSignin: { userInfo } } = getState();
     try {
-        const { data } = await api.put('/users/profile', user);
+        const { data } = await axios.put('/api/users/profile', user, {
+            headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
 
-        // FIX 4: updateProfile returns { user, token } shape — flatten same way
-        const updatedInfo = { ...data.user, token: data.token };
+        // FIX 4: updateProfile also returns { user, token } shape — flatten same way
+        const updatedInfo = { ...data.user, token: userInfo.token };
 
         dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: updatedInfo });
         dispatch({ type: USER_SIGNIN_SUCCESS, payload: updatedInfo });
@@ -94,10 +100,12 @@ export const updateUserProfile = (user) => async (dispatch) => {
 };
 
 // ─── VERIFY PASSWORD ──────────────────────────────────────────────────────────
-export const verifyPassword = (currentPassword) => async () => {
+export const verifyPassword = (currentPassword) => async (dispatch, getState) => {
+    const { userSignin: { userInfo } } = getState();
     try {
-        const { data } = await api.post('/users/verify-password', 
-            { currentPassword }
+        const { data } = await axios.post('/api/users/verify-password', 
+            { currentPassword },
+            { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
         return data;
     } catch (error) {

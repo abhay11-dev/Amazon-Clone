@@ -5,7 +5,7 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { detailsOrder, payOrder } from '../actions/OrderAction';
 import "../styles/OrderDetails.css";
-import api from "../Axios";
+import axios from "../Axios";
 import { PayPalButton } from 'react-paypal-button-v2';
 import { ORDER_PAY_RESET } from '../constants/OrderConstant';
 
@@ -30,7 +30,7 @@ const OrderDetails = (props) => {
     useEffect(() => {
 
         const addPayPalScript = async () => {
-            const { data } = await api.get('/config/paypal');
+            const { data } = await axios.get('/api/config/paypal');
 
             // Prevent duplicate PayPal script loading
             const existingScript = document.querySelector(
