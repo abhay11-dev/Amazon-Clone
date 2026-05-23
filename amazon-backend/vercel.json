@@ -1,27 +1,25 @@
 {
   "version": 2,
-  "buildCommand": "npm install && cd ../amazon-frontend && npm install && npm run build && cd ../amazon-backend",
+  "buildCommand": "cd ../frontend && npm install && npm run build",
   "builds": [
     {
       "src": "server.js",
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "routes": [ { "src": "/api/(.*)", "dest": "server.js" },
+    { "src": "/(.*)", "dest": "server.js" },
     {
       "src": "/api/(.*)",
       "dest": "server.js"
     },
     {
-      "src": "/health",
+      "src": "/(.*\\.(js|css|html|ico|png|jpg|svg|json))",
       "dest": "server.js"
     },
     {
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
