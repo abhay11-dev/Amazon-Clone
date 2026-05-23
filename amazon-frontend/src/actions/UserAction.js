@@ -14,7 +14,7 @@ import axios from "../Axios"
 export const register = (name, email, password, confirmPassword) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST });
     try {
-        const { data } = await axios.post('/api/users/register', {
+        const { data } = await axios.post('/users/register', {
             name, email, password, confirmPassword
         });
 
